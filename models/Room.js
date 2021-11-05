@@ -5,7 +5,8 @@ const RoomSchema = new Schema({
     name: String,
 	picture: String, // (link)
 	description: String,
-	contributors: Array // of user ObjectIds
+	contributors: Array, // of user ObjectIds
+    creator: String //userID, must be admin to create room
 });
 
 module.exports = mongoose.model("Room", RoomSchema);

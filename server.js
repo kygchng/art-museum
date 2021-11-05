@@ -3,6 +3,7 @@ const morgan = require("morgan"); //logger
 const helmet = require("helmet"); //makes API requests more secure
 
 const connectDB = require("./db");
+const consumer = require("./routes/api/consumer");
 
 const app = express();
 const port = 5000;
@@ -20,5 +21,17 @@ app.use(function (req, res, next) {
 app.use(morgan("dev"));
 app.use(helmet());
 connectDB();
+app.use("/api/v1/consumer", consumer);
+
+// http://localhost:5000/api/v1/consumer/register/user
+// http://localhost:5000/api/v1/consumer/create/room
+// http://localhost:5000/api/v1/consumer/create/post
+// http://localhost:5000/api/v1/consumer/fetch/rooms
+// http://localhost:5000/api/v1/consumer/fetch/room/:roomID
+// http://localhost:5000/api/v1/consumer/fetch/user/:userID
+// http://localhost:5000/api/v1/consumer/delete/user/:userID
+// http://localhost:5000/api/v1/consumer/fetch/posts/:roomID
+// http://localhost:5000/api/v1/consumer/fetch/contributors/:roomID
+
 
 app.listen(port, () => console.log(`API server listening on ${port}`)); // ` allows you to pass in variables to the string

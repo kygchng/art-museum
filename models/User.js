@@ -9,8 +9,8 @@ const UserSchema = new Schema({
 	bio: String, // (Artist description)
 	profile_picture: String, // (link)
 	is_admin: Boolean,
-	rooms: Array, // of room ObjectIds that the user has posted to (updated for each post)
-	posts: Array, // of post ObjectIds
+	rooms: Array // of room ObjectIds that the user has posted to (updated for each post)
+	//posts: Array, // of post ObjectIds
 });
 
 module.exports = mongoose.model("User", UserSchema);
