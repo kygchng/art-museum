@@ -36,6 +36,9 @@ app.use("/api/v1/consumer", consumer);
 // http://localhost:5000/api/v1/consumer/approve/post/:postID
 // http://localhost:5000/api/v1/consumer/create/comment
 // http://localhost:5000/api/v1/consumer/fetch/comments/:postID
+// http://localhost:5000/api/v1/consumer/fetch/unapproved/posts
+// http://localhost:5000/api/v1/consumer/increase/likes/:postID/:userID
+// http://localhost:5000/api/v1/consumer/decrease/likes/:postID/:userID
 
 
 app.listen(port, () => console.log(`API server listening on ${port}`)); // ` allows you to pass in variables to the string
