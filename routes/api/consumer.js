@@ -293,4 +293,26 @@ router.put("/decrease/likes/:postID/:userID", async(req, res) => {
     }
 })
 
+router.delete("/delete/post/:postID", async(req, res) => {
+    const postId = ObjectId(req.params.postID);
+    const post = await Post.findById(postId);
+    if(post) {
+        const deletedPost = await Post.deleteOne({_id: postId});
+        return res.status(200).send(deletedPost);
+    } else {
+        return res.status(404).send({});
+    }
+})
+
+router.delete("/delete/comment/:commentID", async(req, res) => {
+    const commentId = ObjectId(req.params.commentID);
+    const comment = await Comment.findById(commentId);
+    if(comment) {
+        const deletedComment = await Comment.deleteOne({_id: commentId});
+        return res.status(200).send(deletedComment);
+    } else {
+        return res.status(404).send({});
+    }
+})
+
 module.exports = router;
