@@ -59,18 +59,18 @@ router.post("/create/post", async(req, res) => {
         }
         await User.findOneAndUpdate({_id: userId}, updatedUserValues); 
 
-        //update room's contributor[] and post []
+        //update room's contributor[] 
         const updatedRoomContributors = room.contributors;
         updatedRoomContributors.push(req.body.user_id);
 
-        const updatedRoomPosts = room.posts;
-        updatedRoomPosts.push(newPost._id);
+        //const updatedRoomPosts = room.posts;
+        //updatedRoomPosts.push(newPost._id);
 
         const updatedRoomValues = {
             name: room.name,
             picture: room.picture, 
             description: room.description,
-            posts: updatedRoomPosts,
+            //posts: updatedRoomPosts,
             contributors: updatedRoomContributors, 
             creator: room.creator
         }
@@ -166,7 +166,7 @@ router.put("/approve/post/:postID", async(req, res) => {
             description: post.description,
             picture: post.picture, // (link)
             likes: post.likes, // of user ObjectIds
-            comments: post.comments, // of comment ObjectIds
+            //comments: post.comments, // of comment ObjectIds
             is_approved: req.body.is_approved
         }
         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
@@ -184,6 +184,7 @@ router.post("/create/comment", async(req, res) => {
     if(post) {
         const newComment = new Comment(req.body);
 
+        /*
         //update post's comment[] 
         const updatedPostComments = post.comments;
         //console.log(updatedUserRooms, " --> this should be a list")
@@ -199,6 +200,7 @@ router.post("/create/comment", async(req, res) => {
             is_approved: post.is_approved
         }
         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
+        */
 
         newComment.save().catch(err => console.log(err));
         return res.status(200).send(newComment);
@@ -246,7 +248,7 @@ router.put("/increase/likes/:postID/:userID", async(req, res) => {
             description: post.description,
             picture: post.picture, // (link)
             likes: updatedLikes, // of user ObjectIds
-            comments: post.comments, // of comment ObjectIds
+            //comments: post.comments, // of comment ObjectIds
             is_approved: post.is_approved
         }
         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
@@ -280,7 +282,7 @@ router.put("/decrease/likes/:postID/:userID", async(req, res) => {
             description: post.description,
             picture: post.picture, // (link)
             likes: updatedLikes, // of user ObjectIds
-            comments: post.comments, // of comment ObjectIds
+            //comments: post.comments, // of comment ObjectIds
             is_approved: post.is_approved
         }
         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 

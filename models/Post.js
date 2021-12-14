@@ -8,7 +8,7 @@ const PostSchema = new Schema({
 	description: String,
 	picture: String, // (link)
 	likes: Array, // of user ObjectIds
-	comments: Array, // of comment ObjectIds
+	//comments: Array, // of comment ObjectIds
 	is_approved: Boolean
 });
 
