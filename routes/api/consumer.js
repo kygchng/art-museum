@@ -103,7 +103,16 @@ router.get("/fetch/room/:roomID", async(req, res) => {
     }
 })
 
-router.get("/fetch/user/:userID", async(req, res) => {
+router.get("/fetch/user/email/:email", async(req, res) => {
+    const user = await await User.findOne({email: req.params.email});
+    if(user) {
+        return res.status(200).send(user);
+    } else {
+        return res.status(404).send({});
+    }
+})
+
+router.get("/fetch/user/ID/:userID", async(req, res) => {
     const userId = ObjectId(req.params.userID);
     const user = await User.findById(userId);
     if(user) {
@@ -113,11 +122,10 @@ router.get("/fetch/user/:userID", async(req, res) => {
     }
 })
 
-router.delete("/delete/user/:userID", async(req, res) => {
-    const userId = ObjectId(req.params.userID);
-    const user = await User.findById(userId);
+router.delete("/delete/user/:email", async(req, res) => {
+    const user = await User.findOne({email: req.params.email});
     if(user) {
-        const deletedUser = await User.deleteOne({_id: userId});
+        const deletedUser = await User.deleteOne({email: req.params.email});
         return res.status(200).send(deletedUser);
     } else {
         return res.status(404).send({});

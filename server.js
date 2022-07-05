@@ -6,7 +6,7 @@ const connectDB = require("./db");
 const consumer = require("./routes/api/consumer");
 
 const app = express();
-const port = 5000;
+const port = 4000;
 
 app.use(express.urlencoded({ extended: false })); //takes in network request and turns it into a JSON
 app.use(express.json());
@@ -28,10 +28,11 @@ app.use("/api/v1/consumer", consumer);
 // http://localhost:5000/api/v1/consumer/create/post
 // http://localhost:5000/api/v1/consumer/fetch/rooms
 // http://localhost:5000/api/v1/consumer/fetch/room/:roomID
-// http://localhost:5000/api/v1/consumer/fetch/user/:userID
-// http://localhost:5000/api/v1/consumer/delete/user/:userID
+// http://localhost:5000/api/v1/consumer/fetch/user/ID/:userID
+// http://localhost:5000/api/v1/consumer/fetch/user/email/:email
+// http://localhost:5000/api/v1/consumer/delete/user/:email
 // http://localhost:5000/api/v1/consumer/fetch/posts/:roomID
-// http://localhost:5000/api/v1/consumer/fetch/contributors/:roomID
+// http://localhost:5000/api/v1/consumer/fetch/contributors/:roomID 
 // http://localhost:5000/api/v1/consumer/delete/room/:roomID
 // http://localhost:5000/api/v1/consumer/approve/post/:postID
 // http://localhost:5000/api/v1/consumer/create/comment
