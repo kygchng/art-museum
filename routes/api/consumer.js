@@ -103,6 +103,16 @@ router.get("/fetch/room/:roomID", async(req, res) => {
     }
 })
 
+router.get("/fetch/post/:postID", async(req, res) => {
+    const postId = ObjectId(req.params.postID);
+    const post = await Post.findById(postId);
+    if(post) {
+        return res.status(200).send(post);
+    } else {
+        return res.status(404).send({});
+    }
+})
+
 router.get("/fetch/user/email/:email", async(req, res) => {
     const user = await await User.findOne({email: req.params.email});
     if(user) {

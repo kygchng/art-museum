@@ -28,6 +28,7 @@ app.use("/api/v1/consumer", consumer);
 // http://localhost:5000/api/v1/consumer/create/post
 // http://localhost:5000/api/v1/consumer/fetch/rooms
 // http://localhost:5000/api/v1/consumer/fetch/room/:roomID
+// http://localhost:5000/api/v1/consumer/fetch/post/:postID
 // http://localhost:5000/api/v1/consumer/fetch/user/ID/:userID
 // http://localhost:5000/api/v1/consumer/fetch/user/email/:email
 // http://localhost:5000/api/v1/consumer/delete/user/:email
