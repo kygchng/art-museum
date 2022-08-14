@@ -5,6 +5,7 @@ const CommentSchema = new Schema({
 	post_id: String,
     user_id: String, // (get username and profile picture)
 	username: String,
+	avatarImage: String,
 	text: String,
 	timestamp: String
 });
