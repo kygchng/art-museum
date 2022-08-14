@@ -179,6 +179,7 @@ router.put("/approve/post/:postID", async(req, res) => {
 
         const updatedPostValues = {
             user_id: post.user_id,
+            username: post.username,
             room_id: post.room_id, // → post.find(room_id)
             title: post.title,
             description: post.description,
@@ -261,6 +262,7 @@ router.put("/increase/likes/:postID/:userID", async(req, res) => {
 
         const updatedPostValues = {
             user_id: post.user_id,
+            username: post.username,
             room_id: post.room_id, // → post.find(room_id)
             title: post.title,
             description: post.description,
@@ -295,6 +297,7 @@ router.put("/decrease/likes/:postID/:userID", async(req, res) => {
 
         const updatedPostValues = {
             user_id: post.user_id,
+            username: post.username,
             room_id: post.room_id, // → post.find(room_id)
             title: post.title,
             description: post.description,

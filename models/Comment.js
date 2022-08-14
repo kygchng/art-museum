@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
 	post_id: String,
     user_id: String, // (get username and profile picture)
+	username: String,
 	text: String,
 	timestamp: String
 });
