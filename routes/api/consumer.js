@@ -151,6 +151,15 @@ router.get("/fetch/posts/:roomID", async(req, res) => {
     }
 })
 
+router.get("/fetch/posts/user/:userID", async(req, res) => {
+    const postList = await Post.find({user_id: req.params.userID, is_approved: true});
+    if(postList.length != 0) {
+        return res.status(200).send(postList);
+    } else {
+        return res.status(404).send({});
+    }
+})
+
 router.get("/fetch/contributors/:roomID", async(req, res) => {
     const roomId = ObjectId(req.params.roomID);
     const room = await Room.findById(roomId);
