@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
     user_id: String,
 	username: String,
+	avatarImage: String,
 	room_id: String, // → post.find(room_id)
 	title: String,
 	description: String,
