@@ -259,7 +259,39 @@ router.get("/fetch/unapproved/posts", async(req, res) => {
     }
 })
 
-router.put("/increase/likes/:postID/:userID", async(req, res) => {
+// router.put("/increase/likes/:postID/:userID", async(req, res) => {
+//     const postId = ObjectId(req.params.postID);
+//     const post = await Post.findById(postId);
+
+//     const userId = ObjectId(req.params.userID);
+//     const user = await User.findById(userId);
+
+//     if(post && user) {
+//         const updatedLikes = post.likes;
+//         updatedLikes.push(req.params.userID);
+
+//         const updatedPostValues = {
+//             user_id: post.user_id,
+//             username: post.username,
+//             avatarImage: post.avatarImage,
+//             room_id: post.room_id, // → post.find(room_id)
+//             title: post.title,
+//             description: post.description,
+//             picture: post.picture, // (link)
+//             likes: updatedLikes, // of user ObjectIds
+//             //comments: post.comments, // of comment ObjectIds
+//             is_approved: post.is_approved
+//         }
+//         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
+
+//         return res.status(200).send(post);
+//     } else {
+//         return res.status(404).send({});
+//     }
+// })
+
+
+router.put("/like/post/:postID/:userID", async(req, res) => {
     const postId = ObjectId(req.params.postID);
     const post = await Post.findById(postId);
 
@@ -267,64 +299,94 @@ router.put("/increase/likes/:postID/:userID", async(req, res) => {
     const user = await User.findById(userId);
 
     if(post && user) {
-        const updatedLikes = post.likes;
-        updatedLikes.push(req.params.userID);
-
-        const updatedPostValues = {
-            user_id: post.user_id,
-            username: post.username,
-            avatarImage: post.avatarImage,
-            room_id: post.room_id, // → post.find(room_id)
-            title: post.title,
-            description: post.description,
-            picture: post.picture, // (link)
-            likes: updatedLikes, // of user ObjectIds
-            //comments: post.comments, // of comment ObjectIds
-            is_approved: post.is_approved
-        }
-        await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
-
-        return res.status(200).send(post);
-    } else {
-        return res.status(404).send({});
-    }
-})
-
-router.put("/decrease/likes/:postID/:userID", async(req, res) => {
-    const postId = ObjectId(req.params.postID);
-    const post = await Post.findById(postId);
-
-    const userId = ObjectId(req.params.userID);
-    const user = await User.findById(userId);
-
-    if(post && user) {
-        const updatedLikes = post.likes;
-        for(var i = 0; i < updatedLikes.length; i++) {
-            if (updatedLikes[i] === req.params.userID) {
-                updatedLikes.splice(i, 1);
-                break;
+        if( !post.likes.includes(userId)) {
+            //if user has not liked post yet
+            
+            const updatedLikes = post.likes;
+            updatedLikes.push(userId);
+    
+            const updatedPostValues = {
+                user_id: post.user_id,
+                username: post.username,
+                avatarImage: post.avatarImage,
+                room_id: post.room_id, // → post.find(room_id)
+                title: post.title,
+                description: post.description,
+                picture: post.picture, // (link)
+                likes: updatedLikes, // of user ObjectIds
+                //comments: post.comments, // of comment ObjectIds
+                is_approved: post.is_approved
             }
+            await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
+    
+            return res.status(200).send(updatedPostValues);
+        } else {
+            //if user has already liked, then remove the like
+
+            const updatedLikes = post.likes.filter((id) => 
+                !(id.equals(userId))
+            )
+    
+            const updatedPostValues = {
+                user_id: post.user_id,
+                username: post.username,
+                avatarImage: post.avatarImage,
+                room_id: post.room_id, // → post.find(room_id)
+                title: post.title,
+                description: post.description,
+                picture: post.picture, // (link)
+                likes: updatedLikes, // of user ObjectIds
+                //comments: post.comments, // of comment ObjectIds
+                is_approved: post.is_approved
+            }
+            await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
+    
+            return res.status(200).send(updatedPostValues);
         }
 
-        const updatedPostValues = {
-            user_id: post.user_id,
-            username: post.username,
-            avatarImage: post.avatarImage,
-            room_id: post.room_id, // → post.find(room_id)
-            title: post.title,
-            description: post.description,
-            picture: post.picture, // (link)
-            likes: updatedLikes, // of user ObjectIds
-            //comments: post.comments, // of comment ObjectIds
-            is_approved: post.is_approved
-        }
-        await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
 
-        return res.status(200).send(post);
+       
     } else {
         return res.status(404).send({});
     }
 })
+
+
+// router.put("/decrease/likes/:postID/:userID", async(req, res) => {
+//     const postId = ObjectId(req.params.postID);
+//     const post = await Post.findById(postId);
+
+//     const userId = ObjectId(req.params.userID);
+//     const user = await User.findById(userId);
+
+//     if(post && user) {
+//         const updatedLikes = post.likes;
+//         for(var i = 0; i < updatedLikes.length; i++) {
+//             if (updatedLikes[i] === req.params.userID) {
+//                 updatedLikes.splice(i, 1);
+//                 break;
+//             }
+//         }
+
+//         const updatedPostValues = {
+//             user_id: post.user_id,
+//             username: post.username,
+//             avatarImage: post.avatarImage,
+//             room_id: post.room_id, // → post.find(room_id)
+//             title: post.title,
+//             description: post.description,
+//             picture: post.picture, // (link)
+//             likes: updatedLikes, // of user ObjectIds
+//             //comments: post.comments, // of comment ObjectIds
+//             is_approved: post.is_approved
+//         }
+//         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
+
+//         return res.status(200).send(post);
+//     } else {
+//         return res.status(404).send({});
+//     }
+// })
 
 router.delete("/delete/post/:postID", async(req, res) => {
     const postId = ObjectId(req.params.postID);
