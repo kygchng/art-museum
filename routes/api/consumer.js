@@ -352,6 +352,60 @@ router.put("/like/post/:postID/:userID", async(req, res) => {
 })
 
 
+router.put("/like/comment/:commentID/:userID", async(req, res) => {
+    const commentId = ObjectId(req.params.commentID);
+    const comment = await Comment.findById(commentId);
+
+    const userId = ObjectId(req.params.userID);
+    const user = await User.findById(userId);
+
+    if(comment && user) {
+        if( !comment.likes.includes(userId)) {
+            //if user has not liked post yet
+            
+            const updatedLikes = comment.likes;
+            updatedLikes.push(userId);
+    
+            const updatedCommentValues = {
+                post_id: comment.post_id,
+                user_id: comment.user_id, // (get username and profile picture)
+                username: comment.username,
+                avatarImage: comment.avatarImage,
+                text: comment.text,
+                timestamp: comment.timestamp,
+                likes: updatedLikes, // of user ObjectIDs
+            }
+            await Comment.findOneAndUpdate({_id: commentId}, updatedCommentValues); 
+    
+            return res.status(200).send(updatedCommentValues);
+        } else {
+            //if user has already liked, then remove the like
+
+            const updatedLikes = comment.likes.filter((id) => 
+                !(id.equals(userId))
+            )
+    
+            const updatedCommentValues = {
+                post_id: comment.post_id,
+                user_id: comment.user_id, // (get username and profile picture)
+                username: comment.username,
+                avatarImage: comment.avatarImage,
+                text: comment.text,
+                timestamp: comment.timestamp,
+                likes: updatedLikes, // of user ObjectIDs
+            }
+            await Comment.findOneAndUpdate({_id: commentId}, updatedCommentValues); 
+    
+            return res.status(200).send(updatedCommentValues);
+        }
+
+
+       
+    } else {
+        return res.status(404).send({});
+    }
+})
+
 // router.put("/decrease/likes/:postID/:userID", async(req, res) => {
 //     const postId = ObjectId(req.params.postID);
 //     const post = await Post.findById(postId);

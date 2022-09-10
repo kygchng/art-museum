@@ -41,6 +41,7 @@ app.use("/api/v1/consumer", consumer);
 // http://localhost:5000/api/v1/consumer/fetch/comments/:postID
 // http://localhost:5000/api/v1/consumer/fetch/unapproved/posts
 // http://localhost:5000/api/v1/consumer/like/post/:postID/:userID
+// http://localhost:5000/api/v1/consumer/like/comment/:commentID/:userID
 // http://localhost:5000/api/v1/consumer/delete/post/:postID
 // http://localhost:5000/api/v1/consumer/delete/comment/:commentID
 

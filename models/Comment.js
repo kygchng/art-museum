@@ -7,7 +7,8 @@ const CommentSchema = new Schema({
 	username: String,
 	avatarImage: String,
 	text: String,
-	timestamp: String
+	timestamp: String,
+	likes: Array, // of user ObjectIDs
 });
 
 module.exports = mongoose.model("Comment", CommentSchema);
