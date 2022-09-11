@@ -196,6 +196,7 @@ router.put("/approve/post/:postID", async(req, res) => {
             picture: post.picture, // (link)
             likes: post.likes, // of user ObjectIds
             //comments: post.comments, // of comment ObjectIds
+            timestamp: post.timestamp,
             is_approved: req.body.is_approved
         }
         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
@@ -315,6 +316,7 @@ router.put("/like/post/:postID/:userID", async(req, res) => {
                 picture: post.picture, // (link)
                 likes: updatedLikes, // of user ObjectIds
                 //comments: post.comments, // of comment ObjectIds
+                timestamp: post.timestamp,
                 is_approved: post.is_approved
             }
             await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
@@ -337,6 +339,7 @@ router.put("/like/post/:postID/:userID", async(req, res) => {
                 picture: post.picture, // (link)
                 likes: updatedLikes, // of user ObjectIds
                 //comments: post.comments, // of comment ObjectIds
+                timestamp: post.timestamp,
                 is_approved: post.is_approved
             }
             await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
@@ -353,12 +356,22 @@ router.put("/like/post/:postID/:userID", async(req, res) => {
 
 
 router.put("/like/comment/:commentID/:userID", async(req, res) => {
-    const commentId = ObjectId(req.params.commentID);
-    const comment = await Comment.findById(commentId);
-
-    const userId = ObjectId(req.params.userID);
-    const user = await User.findById(userId);
-
+    var commentId = null;
+    var comment = null;
+    var userId = null;
+    var user = null;
+    try {
+        commentId = ObjectId(req.params.commentID);
+        console.log(req.params.commentID);
+        comment = await Comment.findById(commentId);
+    
+        userId = ObjectId(req.params.userID);
+        user = await User.findById(userId);    
+    } catch(error) {
+        console.log(error);
+        return res.status(400).send({});
+    }
+    
     if(comment && user) {
         if( !comment.likes.includes(userId)) {
             //if user has not liked post yet

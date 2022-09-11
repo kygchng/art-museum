@@ -11,6 +11,7 @@ const PostSchema = new Schema({
 	picture: String, // (link)
 	likes: Array, // of user ObjectIds
 	//comments: Array, // of comment ObjectIds
+	timestamp: String,
 	is_approved: Boolean
 });
 
