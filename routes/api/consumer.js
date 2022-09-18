@@ -142,13 +142,14 @@ router.delete("/delete/user/:email", async(req, res) => {
     }
 })
 
-router.get("/fetch/posts/:roomID", async(req, res) => {
+router.get("/fetch/approved/posts/:roomID", async(req, res) => {
     const postList = await Post.find({room_id: req.params.roomID, is_approved: true});
-    if(postList.length != 0) {
-        return res.status(200).send(postList);
-    } else {
-        return res.status(404).send({});
-    }
+    return res.status(200).send(postList);
+})
+
+router.get("/fetch/unapproved/posts/:roomID", async(req, res) => {
+    const postList = await Post.find({room_id: req.params.roomID, is_approved: false});
+    return res.status(200).send(postList);
 })
 
 router.get("/fetch/posts/user/:userID", async(req, res) => {
@@ -251,14 +252,7 @@ router.get("/fetch/comments/:postID", async(req, res) => {
     }
 })
 
-router.get("/fetch/unapproved/posts", async(req, res) => {
-    const unapprovedList = await Post.find({is_approved: false});
-    if(unapprovedList.length != 0) {
-        return res.status(200).send(unapprovedList);
-    } else {
-        return res.status(404).send({});
-    }
-})
+
 
 // router.put("/increase/likes/:postID/:userID", async(req, res) => {
 //     const postId = ObjectId(req.params.postID);

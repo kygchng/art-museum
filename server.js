@@ -32,14 +32,14 @@ app.use("/api/v1/consumer", consumer);
 // http://localhost:5000/api/v1/consumer/fetch/user/ID/:userID
 // http://localhost:5000/api/v1/consumer/fetch/user/email/:email
 // http://localhost:5000/api/v1/consumer/delete/user/:email
-// http://localhost:5000/api/v1/consumer/fetch/posts/:roomID
+// http://localhost:5000/api/v1/consumer/fetch/approved/posts/:roomID
+// http://localhost:5000/api/v1/consumer/fetch/unapproved/posts/:roomID
 // http://localhost:5000/api/v1/consumer/fetch/posts/user/:userID
 // http://localhost:5000/api/v1/consumer/fetch/contributors/:roomID 
 // http://localhost:5000/api/v1/consumer/delete/room/:roomID
 // http://localhost:5000/api/v1/consumer/approve/post/:postID
 // http://localhost:5000/api/v1/consumer/create/comment
 // http://localhost:5000/api/v1/consumer/fetch/comments/:postID
-// http://localhost:5000/api/v1/consumer/fetch/unapproved/posts
 // http://localhost:5000/api/v1/consumer/like/post/:postID/:userID
 // http://localhost:5000/api/v1/consumer/like/comment/:commentID/:userID
 // http://localhost:5000/api/v1/consumer/delete/post/:postID
