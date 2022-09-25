@@ -183,6 +183,7 @@ router.delete("/delete/room/:roomID", async(req, res) => {
 })
 
 router.put("/approve/post/:postID", async(req, res) => {
+    //sets to true
     const postId = ObjectId(req.params.postID);
     const post = await Post.findById(postId);
     if(post) {
@@ -198,7 +199,7 @@ router.put("/approve/post/:postID", async(req, res) => {
             likes: post.likes, // of user ObjectIds
             //comments: post.comments, // of comment ObjectIds
             timestamp: post.timestamp,
-            is_approved: req.body.is_approved
+            is_approved: true
         }
         await Post.findOneAndUpdate({_id: postId}, updatedPostValues); 
 
