@@ -6,7 +6,7 @@ const connectDB = require("./db");
 const consumer = require("./routes/api/consumer");
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 app.use(express.urlencoded({ extended: false })); //takes in network request and turns it into a JSON
 app.use(express.json());
